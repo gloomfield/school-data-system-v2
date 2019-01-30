@@ -1,0 +1,428 @@
+openapi: 3.0.0
+info:
+  title: School Data System API
+  version: '1.0'
+  description: This system serves students data with courses and grades.
+  contact:
+    name: Sandro Kallinger
+    email: k8kasa06@students.oamk.fi
+paths:
+  '/students/{studentsId}':
+    get:
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  address:
+                    type: string
+                  class:
+                    type: string
+              examples:
+                response:
+                  value:
+                    id: 1003
+                    name: Joseph Klinik
+                    address: 'Stadtweg 11, 1130 Wien'
+                    class: 1-A
+        '404':
+          description: Student not found.
+      summary: Get a specific student
+      operationId: getStudent
+      parameters:
+        - in: path
+          name: studentsId
+          required: true
+          schema:
+            type: integer
+      tags:
+        - stud
+    put:
+      requestBody:
+        description: Optional description
+        x-name: student
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Student'
+
+      responses:
+        '200':
+          description: Student updated.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  address:
+                    type: string
+                  class:
+                    type: string
+              examples:
+                response:
+                  value:
+                    id: 1003
+                    name: Joseph Klinik
+                    address: 'Stadtweg 11, 1130 Wien'
+                    class: 1-A
+        '404':
+          description: Student not found.
+      summary: Update a student
+      operationId: updateStudent
+      parameters:
+        - in: path
+          name: studentsId
+          required: true
+          schema:
+            type: integer
+    parameters:
+      - name: studentsId
+        in: path
+        required: true
+        schema:
+          type: integer
+    delete:
+      responses:
+        '200':
+          description: Student deleted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  address:
+                    type: string
+                  class:
+                    type: string
+              examples:
+                response:
+                  value: {}
+        '404':
+          description: Student not found.
+      summary: Delete a student
+      operationId: deleteStudent
+      parameters:
+        - in: path
+          name: studentsId
+          required: true
+          schema:
+            type: integer
+  /students:
+    get:
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    address:
+                      type: string
+                    class:
+                      type: string
+              examples:
+                response:
+                  value:
+                    - id: 1000
+                      name: Hans Werner
+                      address: 'Kleinholzgasse 8, 7000 Eisenstadt'
+                      class: 3-A
+                    - id: 1001
+                      name: Carina Hofmeister
+                      address: 'Dunkelwaldstraße 32, 7301 Deutschkreutz'
+                      class: 1-C
+      summary: Get a list of all students
+      operationId: getStudents
+    post:
+      responses:
+        '200':
+          description: New student created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  address:
+                    type: string
+                  class:
+                    type: string
+        '400':
+          description: ''
+      summary: Insert a new student
+      operationId: insertStudent
+      requestBody:
+        description: Student data
+        x-name: student
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Student'
+        x-examples:
+          application/json:
+            id: 1341
+            name: Edward Newby
+            address: 'Elmstreet 13, 666 Halloweentown'
+            class: 13-B
+  /courses:
+    get:
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    description:
+                      type: string
+              examples:
+                response:
+                  value:
+                    - id: 100
+                      name: Networking
+                      description: Any description for the course called 'Networking'
+                    - id: 101
+                      name: Physics
+                      description: Any description for the course called 'Physics'
+      summary: Get all courses
+      operationId: getCourses
+    post:
+      responses:
+        '200':
+          description: Course created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  description:
+                    type: string
+              examples:
+                response:
+                  value:
+                    id: 123
+                    name: Newcourse
+                    description: Some description...
+        '400':
+          description: ''
+      summary: Insert new course
+      operationId: insertCourse
+      requestBody:
+        $ref: "#/components/requestBodies/insertCourseBody"
+  "/courses/{courseId}":
+    get:
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  description:
+                    type: string
+              examples:
+                response:
+                  value: {}
+      summary: Get specific course by ID
+      operationId: getCourse
+      parameters:
+        - in: path
+          name: courseId
+          required: true
+          schema:
+            type: integer
+    parameters:
+      - name: courseId
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      responses:
+        '200':
+          description: Course updated.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  description:
+                    type: string
+        '404':
+          description: Not found.
+      summary: Update a course
+      operationId: updateCourse
+      parameters:
+        - in: path
+          name: courseId
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: change course
+        x-name: course
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Course'
+    delete:
+      responses:
+        '200':
+          description: Course deleted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  description:
+                    type: string
+      summary: Delete a course
+      operationId: deleteCourse
+      parameters:
+        - in: path
+          name: courseId
+          required: true
+          schema:
+            type: integer
+  '/students/{studentsId}/coursegrades':
+    get:
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    studentId:
+                      type: integer
+                    courses:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          courseId:
+                            type: integer
+                          grade:
+                            type: integer
+              examples:
+                response:
+                  value:
+                    - studentID: 1000
+                      courses:
+                        - courseID: 101
+                          grade: 2
+                        - courseID: 103
+                          grade: 4
+                        - courseID: 104
+                          grade: 1
+                        - courseID: 105
+                          grade: 1
+        '404':
+          description: Student not found.
+      summary: Show courses and grades of specific student
+      operationId: getCoursegrades
+      parameters:
+        - in: path
+          name: studentsId
+          required: true
+          schema:
+            type: integer
+    parameters:
+      - name: studentsId
+        in: path
+        required: true
+        schema:
+          type: string
+tags:
+  - name: stud
+servers:
+  - url: 'http://myfuturehost.com'
+  - url: 'https://myfuturehost.com'
+components:
+  requestBodies:
+    insertCourseBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              description:
+                type: string
+  schemas:
+    Student:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        address:
+          type: string
+        class:
+          type: string  

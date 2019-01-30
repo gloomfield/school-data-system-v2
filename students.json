@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1000,
+        "name": "Hans Werner",
+        "address": "Kleinholzgasse 8, 7000 Eisenstadt",
+        "class": "3-A" 
+    },
+    {
+        "id": 1001,
+        "name": "Carina Hofmeister",
+        "address": "Dunkelwaldstraße 32, 7301 Deutschkreutz",
+        "class": "1-C" 
+    },
+    {
+        "id": 1002,
+        "name": "Agatha Christie",
+        "address": "Sackgasse 100, 7350 Oberpullendorf",
+        "class": "2-B" 
+    },
+    {
+        "id": 1003,
+        "name": "Joseph Klinik",
+        "address": "Stadtweg 11, 1130 Wien",
+        "class": "1-A" 
+    },
+    {
+        "id": 1004,
+        "name": "Gregor Gutmann",
+        "address": "Waldweg 3, 7050 Niemalsland",
+        "class": "3-C" 
+    }
+]
